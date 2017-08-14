@@ -89,3 +89,12 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+var commfront = require('../Logic/commfront');
+var io = commfront.io;
+io.attach(server);
+
+//var socketApi = require('../midleware/commfront');
+//var io = modbus.io;
+//io.attach(server);
