@@ -139,3 +139,22 @@ function listEvents(auth) {
   });
 }
 
+
+var googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyBc3eeE2HI3L4GVn5FEHPmwg-721aJHhro'
+});
+
+
+googleMapsClient.distanceMatrix({
+  
+  origins: 'Strada Iazului 4, Chisinau, Moldova',
+  destinations: 'Strada Columna 131, Chisinau, Moldova',
+
+}, function(err, response) {
+  if (!err) {
+    console.log('Timpul pina la serviciu:',response.json.rows[0].elements[0].duration.text);
+    
+  }
+  console.log(err);
+});
+
