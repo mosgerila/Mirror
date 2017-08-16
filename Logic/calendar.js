@@ -127,9 +127,10 @@ function listEvents(auth) {
     }
     var events = response.items;
     if (events.length == 0) {
-      console.log('No upcoming events found.');
+      //console.log('No upcoming events found.');
     } else {
       console.log('Events today');
+      exports.events=events;
       for (var i = 0; i < events.length; i++) {
         var event = events[i];
         var start = event.start.dateTime || event.start.date;
@@ -138,7 +139,7 @@ function listEvents(auth) {
     }
   });
 }
-
+ 
 
 var googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyBc3eeE2HI3L4GVn5FEHPmwg-721aJHhro'
@@ -147,14 +148,14 @@ var googleMapsClient = require('@google/maps').createClient({
 
 googleMapsClient.distanceMatrix({
   
-  origins: 'Strada Iazului 4, Chisinau, Moldova',
-  destinations: 'Strada Columna 131, Chisinau, Moldova',
+  destinations: 'Strada Iazului 4, Chisinau, Moldova',
+  origins: 'Strada Columna 131, Chisinau, Moldova',
 
 }, function(err, response) {
   if (!err) {
-    console.log('Timpul pina la serviciu:',response.json.rows[0].elements[0].duration.text);
+    console.log('Timpul pina acasa:',response.json.rows[0].elements[0].duration.text);
     
   }
-  console.log(err);
+  console.log(err); 
 });
 

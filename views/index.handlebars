@@ -1,6 +1,39 @@
+<div class="container">
+        
+        <table class="table table-responsive table-hover max-height=80%">
+            
+            <tbody id="eventts">
+            <div id="current">
+            </div>
+            <div id="last">
+            </div>
+            
+
+                <div></div>
+            </tr>
+    </tbody>
+
+
+        </table>
+</div>
+
+
 <script src="/socket.io/socket.io.js"></script>
 
+
+
 <script>
-        
         var socket = io.connect();
+              
+        socket.on('events', function (msg) {
+                
+               var i;
+               for (i = 0; i < msg.length; i++) {
+                   var start = msg[i].start.dateTime || msg[i].start.date;    
+                   $('#eventts').prepend('<tr><td><h1>' + start.replace('T', ' ').substr(0, 19) + '</h1></td><td><h1>' + msg[i].summary + '</h1></td></tr>');
+                
+               }
+
+            
+        });
 </script>        
