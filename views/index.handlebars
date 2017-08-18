@@ -38,12 +38,21 @@
         });
 
         socket.on('commute', function (msg) {
-                
                    
-                   $('#eventts').append('<tr><td><h1>Timpul necesar pina acasa</h1></td><td><h1>' + msg + '</h1></td></tr>');
-                
-               
-
-            
+            $('#eventts').append('<tr><td><h1>Timpul necesar pina acasa</h1></td><td><h1>' + msg + '</h1></td></tr>');
+                 
         });
+        
+        socket.on('weathercurrent', function (msg) {
+                   
+            $('#eventts').append('<tr><td><h1>Temperatura curenta: </h1></td><td><h1>' + msg.current.main.temp + '</h1></td></tr>');
+            $('#eventts').append('<tr><td><h1>Umiditatea curenta: </h1></td><td><h1>' + msg.current.main.humidity + '</h1></td></tr>');
+            $('#eventts').append('<tr><td><h1>Viteza vintului curent: </h1></td><td><h1>' + msg.current.wind.speed + '</h1></td></tr>');
+            $('#eventts').append('<tr><td><h1>Innourarea curent: </h1></td><td><h1>' + msg.current.clouds.all + '</h1></td></tr>');
+            $('#eventts').append('<tr><td><h1>Temperatura max miine: </h1></td><td><h1>' + msg.forecast.list[0].temp.max + '</h1></td></tr>');
+            $('#eventts').append('<tr><td><h1>Temperatura min miine: </h1></td><td><h1>' + msg.forecast.list[0].temp.night + '</h1></td></tr>');
+            $('#eventts').append('<tr><td><h1>Innourarea miine: </h1></td><td><h1>' + msg.forecast.list[0].clouds + '</h1></td></tr>');
+                 
+        });
+
 </script>        

@@ -2,6 +2,7 @@ var socket_io = require('socket.io');
 var io = socket_io();
 var maps = require ('../Logic/maps');
 var calendar = require('../Logic/calendar');
+var weather = require('../Logic/weather');
 
 var mdb = {};
 
@@ -32,6 +33,11 @@ io.on('connection', function (socket) {
             console.log(time)}
         else {console.log(time.err)}
 
+    })
+
+    weather.getweather(function(data){
+        console.log('Temperature',data);
+        socket.emit('weathercurrent', data);
     })
 });
 

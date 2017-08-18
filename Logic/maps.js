@@ -1,13 +1,16 @@
-var google = require('googleapis');
 
-var googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyBc3eeE2HI3L4GVn5FEHPmwg-721aJHhro'
-});
 
 module.exports={
    
     comutet: function(time){
       try{
+     
+      var google = require('googleapis');
+
+      var googleMapsClient = require('@google/maps').createClient({
+        key: 'AIzaSyBc3eeE2HI3L4GVn5FEHPmwg-721aJHhro'
+      });  
+         
       googleMapsClient.distanceMatrix({
   
         destinations: 'Strada Iazului 4, Chisinau, Moldova',
