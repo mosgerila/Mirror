@@ -13,6 +13,12 @@ var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 var TOKEN_DIR = 'E:\Node\Mirror\credentials';
 var TOKEN_PATH = TOKEN_DIR + 'calendar-nodejs-quickstart.json';
 
+
+module.exports={
+
+  geteventts:function(evenimente){
+
+try{
 // Load client secrets from a local file.
 fs.readFile('client_secret.json', function processClientSecrets(err, content) {
   if (err) {
@@ -31,6 +37,9 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
+
+
+ 
 function authorize(credentials, callback) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
@@ -98,64 +107,55 @@ function storeToken(token) {
   console.log('Token stored to ' + TOKEN_PATH);
 }
 
+
 /**
  * Lists the next 10 events on the user's primary calendar.
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listEvents(auth) {
-  var calendar = google.calendar('v3');
- var currentDate = new Date();
-  currentDate.setDate(currentDate.getDate() + 1);
-  currentDate.setHours(6,0,0);
+    function listEvents(auth) {
+      var calendar = google.calendar('v3');
+      var currentDate = new Date();
+      currentDate.setDate(currentDate.getDate() + 1);
+      currentDate.setHours(6,0,0);
 
-  calendar.events.list({
-    auth: auth,
-    calendarId: 'primary',
-    timeMin: (new Date()).toISOString(),
-    timeMax: currentDate.toISOString(),
+      calendar.events.list({
+        auth: auth,
+        calendarId: 'primary',
+        timeMin: (new Date()).toISOString(),
+        timeMax: currentDate.toISOString(),
     
-    maxResults: 10,
-    singleEvents: true,
-    orderBy: 'startTime'
-  }, function(err, response) {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      console.log( currentDate.getDate());
-      return;
+        maxResults: 10,
+        singleEvents: true,
+        orderBy: 'startTime'
+      }, function(err, response) {
+           if (err) {
+             console.log('The API returned an error: ' + err);
+             console.log( currentDate.getDate());
+             return evenimente(err);
       
+           }
+        var events = response.items;
+          if (events.length == 0) {
+            console.log('No upcoming events found.');
+          } else {
+          console.log('Events today');
+          
+          //exports.events=events;
+        for (var i = 0; i < events.length; i++) {
+          var event = events[i];
+          var start = event.start.dateTime || event.start.date;
+          console.log('%s - %s', start, event.summary);
+        }
+        return evenimente(events);
+        }
+      });
     }
-    var events = response.items;
-    if (events.length == 0) {
-      //console.log('No upcoming events found.');
-    } else {
-      console.log('Events today');
-      exports.events=events;
-      for (var i = 0; i < events.length; i++) {
-        var event = events[i];
-        var start = event.start.dateTime || event.start.date;
-        console.log('%s - %s', start, event.summary);
-      }
-    }
-  });
-}
- 
-
-var googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyBc3eeE2HI3L4GVn5FEHPmwg-721aJHhro'
-});
-
-
-googleMapsClient.distanceMatrix({
-  
-  destinations: 'Strada Iazului 4, Chisinau, Moldova',
-  origins: 'Strada Columna 131, Chisinau, Moldova',
-
-}, function(err, response) {
-  if (!err) {
-    console.log('Timpul pina acasa:',response.json.rows[0].elements[0].duration.text);
-    
+  } catch(err) {console.log(err);}  
   }
-  console.log(err); 
-});
+  
+}
+
+
+        
 

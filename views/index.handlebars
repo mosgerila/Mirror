@@ -30,9 +30,19 @@
                var i;
                for (i = 0; i < msg.length; i++) {
                    var start = msg[i].start.dateTime || msg[i].start.date;    
-                   $('#eventts').prepend('<tr><td><h1>' + start.replace('T', ' ').substr(0, 19) + '</h1></td><td><h1>' + msg[i].summary + '</h1></td></tr>');
+                   $('#eventts').append('<tr><td><h1>' + start.replace('T', ' ').substr(0, 19) + '</h1></td><td><h1>' + msg[i].summary + '</h1></td></tr>');
                 
                }
+
+            
+        });
+
+        socket.on('commute', function (msg) {
+                
+                   
+                   $('#eventts').append('<tr><td><h1>Timpul necesar pina acasa</h1></td><td><h1>' + msg + '</h1></td></tr>');
+                
+               
 
             
         });

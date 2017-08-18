@@ -1,22 +1,39 @@
 var socket_io = require('socket.io');
 var io = socket_io();
+var maps = require ('../Logic/maps');
 var calendar = require('../Logic/calendar');
+
 var mdb = {};
 
 
 mdb.io=io;
 
-module.exports=mdb;
+
 
 
 
 io.on('connection', function (socket) {
     console.log('A user connected');
+    
     console.log(calendar);
-    var obj = { time: "23", val: "BOK" };
-    //obj.time = 
-    //console.log('Calendar length: ', calendar.events.length)
-    socket.emit('events', calendar.events);
+    
+    calendar.geteventts(function(eventts){
+        if (!eventts.err) {
+            socket.emit('events', eventts);
+            console.log('Am trimis evenimentele la frontend')}
+        else {console.log(calendar.err)}
 
+    })
 
+    
+    maps.comutet(function(time){
+        if (!time.err) {
+            socket.emit('commute', time);
+            console.log(time)}
+        else {console.log(time.err)}
+
+    })
 });
+
+ 
+module.exports=mdb;
