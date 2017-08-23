@@ -26,7 +26,7 @@ module.exports={
            console.log(err); 
 
         })
-      }catch(err){console.log(err);}
+      }catch(err){console.log(err);} 
     }
     
 }        

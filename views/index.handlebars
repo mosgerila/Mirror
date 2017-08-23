@@ -1,5 +1,9 @@
-<div class="container">
-        
+<div class="container-fluid">
+    <h6 id="weather_current"></h6>
+</div>  
+
+<div class="container-fluid">
+          
         <table class="table table-responsive table-hover max-height=80%">
             
             <tbody id="eventts">
@@ -52,7 +56,8 @@
             $('#eventts').append('<tr><td><h1>Temperatura max miine: </h1></td><td><h1>' + msg.forecast.list[0].temp.max + '</h1></td></tr>');
             $('#eventts').append('<tr><td><h1>Temperatura min miine: </h1></td><td><h1>' + msg.forecast.list[0].temp.night + '</h1></td></tr>');
             $('#eventts').append('<tr><td><h1>Innourarea miine: </h1></td><td><h1>' + msg.forecast.list[0].clouds + '</h1></td></tr>');
-                 
+             
+            document.getElementById("weather_current").innerHTML = msg.current.main.temp;     
         });
 
-</script>        
+</script>         

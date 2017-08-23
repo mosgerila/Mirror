@@ -1,13 +1,13 @@
-function date_time(id)
+function date_front(id_date,id_time)
 {
         date = new Date;
         year = date.getFullYear();
         month = date.getMonth();
-        months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September', 'October', 'November', 'December');
+        months = new Array('Ianuarie', 'Februarie', 'Martie', 'Aprilie', 'Mai', 'Iunie', 'Iulie', 'August', 'Septembrie', 'Octombrie', 'Noiembrie', 'Decembrie');
         d = date.getDate();
         day = date.getDay();
         days = new Array('Duminica', 'Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri', 'Simbata');
-        h = date.getHours();
+         h = date.getHours();
         if(h<10)
         {
                 h = "0"+h;
@@ -22,8 +22,14 @@ function date_time(id)
         {
                 s = "0"+s;
         }
-        result = ''+d+' '+months[month]+' '+year+' '+days[day]+' '+h+':'+m+':'+s;
-        document.getElementById(id).innerHTML = result;
-        setTimeout('date_time("'+id+'");','1000');
+        result_date = ''+days[day]+' '+d+' '+months[month];
+        result_time = ''+h+':'+m+':'+s;        
+
+        document.getElementById(id_date).innerHTML = result_date;
+        document.getElementById(id_time).innerHTML = result_time;
+        
+        setTimeout('date_front("'+id_date+'","'+id_time+'");','1000');
         return true;
 }
+
+
