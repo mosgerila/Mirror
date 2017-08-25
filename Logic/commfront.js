@@ -10,7 +10,16 @@ var mdb = {};
 mdb.io=io;
 
 
-
+calendare=function(socket){
+  calendar.geteventts(function(eventts){
+        if (!eventts.err) {
+            socket.emit('events', eventts);
+            console.log('Am trimis evenimentele la frontend')}
+        else {console.log(calendar.err)}
+    
+        setTimeout(calendare, 600000, socket);
+    })  
+}
 
 
 io.on('connection', function (socket) {
@@ -18,17 +27,12 @@ io.on('connection', function (socket) {
     
     console.log(calendar);
     
-    calendar.geteventts(function(eventts){
-        if (!eventts.err) {
-            socket.emit('events', eventts);
-            console.log('Am trimis evenimentele la frontend')}
-        else {console.log(calendar.err)}
-
-    })
-
+    calendare(socket);
+   
+      
     
     maps.comutet(function(time){
-        if (!time.err) {
+        if (!time.err) { 
             socket.emit('commute', time);
             console.log(time)}
         else {console.log(time.err)}
@@ -36,7 +40,7 @@ io.on('connection', function (socket) {
     })
 
     weather.getweather(function(data){
-        console.log('Temperature',data);
+        //console.log('Temperature',data);
         socket.emit('weathercurrent', data);
     })
 });

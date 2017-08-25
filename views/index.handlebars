@@ -1,26 +1,21 @@
 <div class="container-fluid">
-    <h6 id="weather_current"></h6>
-</div>  
-
-<div class="container-fluid">
-          
-        <table class="table table-responsive table-hover max-height=80%">
-            
-            <tbody id="eventts">
-            <div id="current">
-            </div>
-            <div id="last">
-            </div>
-            
-
-                <div></div>
-            </tr>
-    </tbody>
-
-
-        </table>
+   <h6 id="date_front" class="text-left">  </h6>
+   <h2 id="time_front" class="text-left">  </h2>
+   <h6 id="weather_current" class="text-left"></h6>
+   <h6 id="weather_forecast" class="text-left"></h6>
 </div>
 
+<div class="container-fluid">
+   <h6 id="commute" class="text-left">  </h6>  
+</div>   
+
+<div class="container-fluid" id='calendar'>
+     
+</div>  
+          
+
+
+<script type="text/javascript">window.onload = date_front('date_front','time_front');</script>
 
 <script src="/socket.io/socket.io.js"></script>
 
@@ -30,11 +25,11 @@
         var socket = io.connect();
               
         socket.on('events', function (msg) {
-                
+               $('#calendar').empty();
                var i;
                for (i = 0; i < msg.length; i++) {
                    var start = msg[i].start.dateTime || msg[i].start.date;    
-                   $('#eventts').append('<tr><td><h1>' + start.replace('T', ' ').substr(0, 19) + '</h1></td><td><h1>' + msg[i].summary + '</h1></td></tr>');
+                   $('#calendar').append('<h6>' + start.replace('T', ' ').substr(0, 19) + '  ' + msg[i].summary + '</h6>');
                 
                }
 
@@ -43,21 +38,17 @@
 
         socket.on('commute', function (msg) {
                    
-            $('#eventts').append('<tr><td><h1>Timpul necesar pina acasa</h1></td><td><h1>' + msg + '</h1></td></tr>');
+            
+            document.getElementById("commute").innerHTML ='Timpul necesar pina acasa: '+msg;
                  
         });
         
         socket.on('weathercurrent', function (msg) {
                    
-            $('#eventts').append('<tr><td><h1>Temperatura curenta: </h1></td><td><h1>' + msg.current.main.temp + '</h1></td></tr>');
-            $('#eventts').append('<tr><td><h1>Umiditatea curenta: </h1></td><td><h1>' + msg.current.main.humidity + '</h1></td></tr>');
-            $('#eventts').append('<tr><td><h1>Viteza vintului curent: </h1></td><td><h1>' + msg.current.wind.speed + '</h1></td></tr>');
-            $('#eventts').append('<tr><td><h1>Innourarea curent: </h1></td><td><h1>' + msg.current.clouds.all + '</h1></td></tr>');
-            $('#eventts').append('<tr><td><h1>Temperatura max miine: </h1></td><td><h1>' + msg.forecast.list[0].temp.max + '</h1></td></tr>');
-            $('#eventts').append('<tr><td><h1>Temperatura min miine: </h1></td><td><h1>' + msg.forecast.list[0].temp.night + '</h1></td></tr>');
-            $('#eventts').append('<tr><td><h1>Innourarea miine: </h1></td><td><h1>' + msg.forecast.list[0].clouds + '</h1></td></tr>');
+            
              
-            document.getElementById("weather_current").innerHTML = msg.current.main.temp;     
+            document.getElementById("weather_current").innerHTML =+' '+ msg.current.main.temp+' &#8451 '+msg.current.weather[0].description.charAt(0).toUpperCase()+msg.current.weather[0].description.slice(1);
+                 
         });
 
 </script>         

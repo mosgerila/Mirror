@@ -15,6 +15,9 @@ module.exports={
   
         destinations: 'Strada Iazului 4, Chisinau, Moldova',
         origins: 'Strada Columna 131, Chisinau, Moldova',
+        language: 'ro',
+        departure_time: 'now',
+        traffic_model: 'pessimistic'
 
       }, function(err, response) {
            if (!err) {

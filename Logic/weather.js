@@ -40,13 +40,14 @@ module.exports={
 			console.log(err);
 		}
 		obj.current=datas1;
+		
 
 		weather.getWeatherForecastForDays(3, function(err, datas2){
 		    if (err){
 			console.log(err);
 		    }
 		    obj.forecast=datas2;
-			console.log(datas2.list[0]);
+			//console.log(datas2.list[0]);
 			
 			return data(obj);
 	    });
@@ -57,11 +58,11 @@ module.exports={
 
 	// get the Description of the weather condition
 	weather.getDescription(function(err, desc){
-		console.log(desc);
+		//console.log(desc);
 	});
 
 	weather.getWeatherForecastForDays(3, function(err, obj){
-		console.log(obj.list[1].temp.day);
+		//console.log(obj.list[1].temp.day);
 		
 	});
   }
