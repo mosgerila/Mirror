@@ -147,8 +147,9 @@ function storeToken(token) {
           var start = event.start.dateTime || event.start.date;
           console.log('%s - %s', start, event.summary);
         }
-        return evenimente(events);
+        //return evenimente(events);
         }
+        return evenimente(events);
       });
     }
   } catch(err) {console.log(err);}  
